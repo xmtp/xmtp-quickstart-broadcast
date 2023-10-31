@@ -2,6 +2,8 @@
 
 This tutorial will guide you on how to create a simple `Broadcast` that enables the user to broadcast messages to one or many specified Ethereum addresses.
 
+![](video.gif)
+
 #### Import XMTP Client and Ethers Library
 
 The code starts by importing the required XMTP and Ethereum packages. This enables you to create an XMTP client and interact with the Ethereum blockchain.
