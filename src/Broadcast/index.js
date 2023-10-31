@@ -146,12 +146,11 @@ export function Broadcast({
     }
 
     setLoading(true);
-
     try {
       const xmtp = await Client.create(signer, { env: env });
-      const broadcasts_canMessage = await xmtp.canMessage(walletAddresses);
-      for (let i = 0; i < walletAddresses.length; i++) {
-        const wallet = walletAddresses[i];
+      const broadcasts_canMessage = await xmtp.canMessage(walletAddressesState);
+      for (let i = 0; i < walletAddressesState.length; i++) {
+        const wallet = walletAddressesState[i];
         const canMessage = broadcasts_canMessage[i];
         if (canMessage) {
           const conversation = await xmtp.conversations.newConversation(wallet);
@@ -179,7 +178,7 @@ export function Broadcast({
     walletAddresses.join("\n "),
   );
   const [walletAddressesState, setWalletAddressesState] = useState(
-    walletAddressesInput.split(", "),
+    walletAddressesInput.split(/[\n,]+/),
   );
   const handleOpenPopup = () => {
     setWalletAddressesState(walletAddressesInput.split(", "));
@@ -188,7 +187,7 @@ export function Broadcast({
   const handleWalletAddressesInputChange = (event) => {
     const newAddresses = event.target.value;
     setWalletAddressesInput(newAddresses);
-    setWalletAddressesState(newAddresses.split(", "));
+    setWalletAddressesState(newAddresses.split(/[\n,]+/)); // split by newline instead of comma
   };
 
   return (
