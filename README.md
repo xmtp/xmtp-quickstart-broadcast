@@ -4,12 +4,6 @@ This tutorial will guide you on how to create a simple `Broadcast` that enables 
 
 ![](video.gif)
 
-# How to Broadcast with XMTP
-
-import { Broadcast } from "/components/Broadcast";
-
-This tutorial will guide you on how to create a simple `Broadcast` that enables the user to broadcast messages to one or many specified Ethereum addresses.
-
 <div className="widget-container">
   <Broadcast
     env="production"
@@ -52,13 +46,13 @@ _For more information check the [FAQs](https://xmtp.org/docs/faq#rate-limiting)_
 
 #### Check which addresses can receive messages
 
-In the `handleBroadcastClick` function, the canMessage method checks which of the wallet addresses from the array can receive messages.
+In the `handleBroadcastClick` function, the `canMessage` method checks which of the wallet addresses from the array can receive messages.
 
 ```jsx
 // Create a new XMTP client with the signer and environment
 const xmtp = await Client.create(signer, { env: env });
 // Check if the client can message the provided wallet addresses
-const broadcasts_canMessage = await xmtp.canMessage(walletAddresses);
+const broadcasts_canMessage = await xmtp.canMessage([walletAddresses]);
 ```
 
 _This will return an array of booleans that correspond to the wallet addresses. If the boolean is true, the address can receive messages. If the boolean is false, the address cannot receive messages._
@@ -73,10 +67,10 @@ xmtp.contacts.isAllowed(wallet);
 
 #### Refresh the Consent List
 
-To ensure we're working with the most up-to-date information, we refresh the consent list.
+To ensure we're working with the most up-to-date information, refresh the consent list before doing the broadcast.
 
 ```jsx
-xmtp.contacts.refreshConsentList();
+await xmtp.contacts.refreshConsentList();
 ```
 
 #### Loop through wallet address array to broadcast
@@ -100,24 +94,17 @@ for (let i = 0; i < walletAddresses.length; i++) {
     const conversation = await xmtp.conversations.newConversation(wallet);
     // Send the broadcast message to the conversation
     const sent = await conversation.send(broadcastMessage);
-    console.log("Sent", sent);
     // If a callback function is provided, call it with the sent message
     if (onMessageSuccess) {
       onMessageSuccess(sent);
     }
-  } else {
-    // If the address cannot receive messages, log it
-    if (!canMessage) console.log(wallet, " is not on the network");
-    // If the address has not allowed consent, log it
-    if (!xmtp.contacts.isAllowed(wallet))
-      console.log(wallet, " has not allowed consent yet");
   }
 }
 ```
 
-#### Modal Interface
+#### Popup UI
 
-A modal pops up when the user opts to send a message. This modal contains a text area for the user to input their message.
+A modal pops up when the user opts to send a message. This modal contains a text area for the user to input their message. Also handles `isLoading` and `messageSent` states.
 
 ```jsx
 {
@@ -134,7 +121,3 @@ A modal pops up when the user opts to send a message. This modal contains a text
   );
 }
 ```
-
-#### Conclusion
-
-By following these steps, you should be able to utilize XMTP for broadcasting messages to multiple Ethereum wallet addresses. Remember to be mindful of the rate limit of 1,000 publish requests per 5 minutes imposed by XMTP.

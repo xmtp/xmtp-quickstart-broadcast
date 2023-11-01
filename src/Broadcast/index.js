@@ -144,15 +144,15 @@ export function Broadcast({
       alert("Please enter a message");
       return;
     }
-
     setLoading(true);
+
     try {
       // Create a new XMTP client with the signer and environment
       const xmtp = await Client.create(signer, { env: env });
+      await xmtp.contacts.refreshConsentList();
+
       // Check if the client can message the provided wallet addresses
       const broadcasts_canMessage = await xmtp.canMessage(walletAddresses);
-      //Update consent list
-      await xmtp.contacts.refreshConsentList();
       // Loop through the wallet addresses
       for (let i = 0; i < walletAddresses.length; i++) {
         const wallet = walletAddresses[i];
@@ -193,7 +193,7 @@ export function Broadcast({
     walletAddresses.join("\n "),
   );
   const [walletAddressesState, setWalletAddressesState] = useState(
-    walletAddressesInput.split(/[\n,]+/),
+    walletAddressesInput.split(", "),
   );
   const handleOpenPopup = () => {
     setWalletAddressesState(walletAddressesInput.split(", "));
@@ -202,7 +202,7 @@ export function Broadcast({
   const handleWalletAddressesInputChange = (event) => {
     const newAddresses = event.target.value;
     setWalletAddressesInput(newAddresses);
-    setWalletAddressesState(newAddresses.split(/[\n,]+/)); // split by newline instead of comma
+    setWalletAddressesState(newAddresses.split(", "));
   };
 
   return (
