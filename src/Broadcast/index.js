@@ -147,18 +147,33 @@ export function Broadcast({
 
     setLoading(true);
     try {
+      // Create a new XMTP client with the signer and environment
       const xmtp = await Client.create(signer, { env: env });
-      const broadcasts_canMessage = await xmtp.canMessage(walletAddressesState);
-      for (let i = 0; i < walletAddressesState.length; i++) {
-        const wallet = walletAddressesState[i];
+      // Check if the client can message the provided wallet addresses
+      const broadcasts_canMessage = await xmtp.canMessage(walletAddresses);
+      //Update consent list
+      await xmtp.contacts.refreshConsentList();
+      // Loop through the wallet addresses
+      for (let i = 0; i < walletAddresses.length; i++) {
+        const wallet = walletAddresses[i];
         const canMessage = broadcasts_canMessage[i];
-        if (canMessage) {
+        // If the address can receive messages and has allowed consent
+        if (canMessage && xmtp.contacts.isAllowed(wallet)) {
+          // Create a new conversation with the wallet address
           const conversation = await xmtp.conversations.newConversation(wallet);
+          // Send the broadcast message to the conversation
           const sent = await conversation.send(broadcastMessage);
           console.log("Sent", sent);
+          // If a callback function is provided, call it with the sent message
           if (onMessageSuccess) {
-            onMessageSuccess(sent); // Call the callback function here
+            onMessageSuccess(sent);
           }
+        } else {
+          // If the address cannot receive messages, log it
+          if (!canMessage) console.log(wallet, " is not on the network");
+          // If the address has not allowed consent, log it
+          if (!xmtp.contacts.isAllowed(wallet))
+            console.log(wallet, " has not allowed consent yet");
         }
       }
       setMessageSent(true);
