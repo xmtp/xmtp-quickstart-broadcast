@@ -4,20 +4,6 @@ This tutorial will guide you on how to create a simple `Broadcast` that enables 
 
 ![](video.gif)
 
-<div className="widget-container">
-  <Broadcast
-    env="production"
-    walletAddresses={[
-      "0x93E2fc3e99dFb1238eB9e0eF2580EFC5809C7204",
-      "0xdf9A8d961A55e75E1FAEc72037f89251f84ADCc3",
-    ]}
-    placeholderMessage="Enter a broadcast message here"
-    onMessageSuccess={(message) =>
-      console.log("Message sent" + message.content)
-    }
-  />
-</div>
-
 #### Import XMTP Client and Ethers Library
 
 The code starts by importing the required XMTP and Ethereum packages. This enables you to create an XMTP client and interact with the Ethereum blockchain.
