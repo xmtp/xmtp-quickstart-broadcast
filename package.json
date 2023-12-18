@@ -1,5 +1,5 @@
 {
-  "name": "xmtp-broadcast-portable-consent",
+  "name": "xmtp-ppp-broadcast",
   "version": "0.1.1",
   "private": true,
   "dependencies": {
