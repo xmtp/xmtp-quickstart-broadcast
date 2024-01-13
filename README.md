@@ -120,7 +120,7 @@ A modal pops up when the user opts to send a message. This modal contains a text
 
 ## Caution :warning:
 
-**Always synchronize consent states:** Before updating consent preferences on the network, ensure you refresh the consent list with `await xmtp.contacts.refreshConsentList();`. Update the network's consent list only in these scenarios:
+**Always synchronize consent states:** Before updating consent preferences on the network, ensure you refresh the consent list with `refreshConsentList`. Update the network's consent list only in these scenarios:
 
 - **User Denies Contact:** Set to `denied` if a user blocks or unsubscribes.
 - **User Allows Contact:** Set to `allowed` if a user subscribes or enables notifications.
@@ -132,3 +132,7 @@ Neglecting these guidelines can result in consent state conflicts and compromise
 ## Conclusion
 
 Consent has really evolved through the years. It started with email, then email marketing, and was the wild west until laws like GPDR stepped in. This is new chapter in the history of consent in a new era for privacy, portability, and ownership.
+
+## Example repo
+
+_You can find a complete example of this tutorial in the [xmtp-broadcast](https://github.com/fabriguespe/xmtp-broadcast) repo._
