@@ -4,15 +4,6 @@ This tutorial will guide you on how to create a simple `Broadcast` that enables 
 
 ## ![](video.gif)
 
-sidebar_label: Broadcast
-sidebar_position: 5
-
----
-
-# Broadcast messages with XMTP
-
-This tutorial will guide you on creating a simple **Broadcast** that enables the user to broadcast messages to one or many specified Ethereum addresses.
-
 ## Considerations
 
 Before diving into the code let's consider important aspects while integrating consent features. For example, before making an allow or block action you should synchronize the updated consent list in order to **prevent overwriting network** consent from another app. For more details head to these sections of our docs:
