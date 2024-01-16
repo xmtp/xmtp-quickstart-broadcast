@@ -13,12 +13,6 @@ sidebar_position: 5
 
 This tutorial will guide you on creating a simple **Broadcast** that enables the user to broadcast messages to one or many specified Ethereum addresses.
 
-<div class=" rabbit  p-5 ">
-
-📥 <b>Need a quick reference?</b> Check out this GitHub repo: <a href="https://github.com/fabriguespe/xmtp-broadcast">xmtp-broadcast</a>
-
-</div>
-
 ## Considerations
 
 Before diving into the code let's consider important aspects while integrating consent features. For example, before making an allow or block action you should synchronize the updated consent list in order to **prevent overwriting network** consent from another app. For more details head to these sections of our docs:
