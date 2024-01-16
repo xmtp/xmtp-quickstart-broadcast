@@ -45,7 +45,7 @@ Before diving into the code let's consider important aspects while integrating c
 
 - [Popup UI](https://junk-range-possible-git-portableconsenttutorials-xmtp-labs.vercel.app/docs/tutorials/portable-consent/broadcast#tutorial)
 
-:::caution Caution
+## Caution :warning:
 
 **Always synchronize consent states:** Before updating consent preferences on the network, ensure you refresh the consent list with `refreshConsentList`. Update the network's consent list only in these scenarios:
 
@@ -55,8 +55,6 @@ Before diving into the code let's consider important aspects while integrating c
 - **User Response:** Set to `allowed` if the user has engaged in conversation.
 
 Neglecting these guidelines can result in consent state conflicts and compromise user privacy.
-
-:::
 
 ## Conclusion
 
