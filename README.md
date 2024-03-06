@@ -1,8 +1,17 @@
 # How to Broadcast with XMTP
 
+![xmtp](https://github.com/xmtp/xmtp-quickstart-reactjs/assets/1447073/3f2979ec-4d13-4c3d-bf20-deab3b2ffaa1)
+
 This tutorial will guide you on how to create a simple `Broadcast` that enables the user to broadcast messages to one or many specified Ethereum addresses.
 
-## ![](video.gif)
+![](video.gif)
+
+## Installation
+
+```bash
+yarn install
+yarn dev
+```
 
 ## Considerations
 
